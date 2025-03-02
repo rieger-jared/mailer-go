@@ -22,6 +22,8 @@ var assets embed.FS
 // logs any error that might occur.
 func main() {
 
+	// Create a new Gmail client service
+
 	// Create a new Wails application by providing the necessary options.
 	// Variables 'Name' and 'Description' are for application metadata.
 	// 'Assets' configures the asset server with the 'FS' variable pointing to the frontend files.
@@ -31,7 +33,7 @@ func main() {
 		Name:        "emailer-go",
 		Description: "A demo of using raw HTML & CSS",
 		Services: []application.Service{
-			application.NewService(&GreetService{}),
+			application.NewService(NewGmailClientService()),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),
@@ -57,6 +59,14 @@ func main() {
 		URL:              "/",
 	})
 
+	menu := app.NewMenu()
+
+	// Add standard menus
+	menu.AddRole(application.FileMenu)
+	menu.AddRole(application.EditMenu)
+	menu.AddRole(application.WindowMenu)
+	menu.AddRole(application.HelpMenu)
+
 	// Create a goroutine that emits an event containing the current time every second.
 	// The frontend can listen to this event and update the UI accordingly.
 	go func() {
@@ -66,6 +76,11 @@ func main() {
 			time.Sleep(time.Second)
 		}
 	}()
+
+	app.OnEvent("button-pressed", func(_ *application.CustomEvent) {
+		println("Button Pressed!")
+	})
+
 
 	// Run the application. This blocks until the application has been exited.
 	err := app.Run()

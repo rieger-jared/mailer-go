@@ -16,8 +16,8 @@ import {
 } from '@/components/ui/sidebar';
 import { EmailList } from '@/components/email-list';
 import { EmailLabels } from '@/components/email-labels';
-import { AuthProvider } from '@/contexts/AuthContext';
-import AuthGuard from '@/components/AuthGuard';
+import { AuthProvider } from '@/auth/auth-context';
+import AuthGuard from '@/auth/AuthGuard';
 import { GmailProvider } from '@/contexts/gmail-context';
 import LogoutButton from '@/components/LogoutButton';
 import WailsDemo from './WailsDemo';
@@ -69,12 +69,12 @@ function EmailApp() {
 function App() {
   return (
     <AuthProvider>
-      <WailsDemo />
-      {/* <GmailProvider> */}
-      {/* <AuthGuard> */}
-      {/* <EmailApp /> */}
-      {/* </AuthGuard> */}
-      {/* </GmailProvider> */}
+      {/* <WailsDemo /> */}
+      <AuthGuard>
+        <GmailProvider>
+          <EmailApp />
+        </GmailProvider>
+      </AuthGuard>
     </AuthProvider>
   );
 }

@@ -4,10 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri + React + Typescript</title>
+    <title>Wails3 Demo</title>
+    <script>
+      // On page load, check for dark mode preference
+      (function() {
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // If the saved theme is dark or there's no saved theme but the system prefers dark
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
 
-  <body>
+  <body class="bg-white dark:bg-gray-900 transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="main.tsx"></script>
   </body>

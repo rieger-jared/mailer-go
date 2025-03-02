@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../auth/auth-context';
 import { Loader2 } from 'lucide-react';
 
 const LogoutButton: React.FC = () => {
